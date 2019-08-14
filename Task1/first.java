@@ -21,27 +21,27 @@ public class first{
 			}
 			System.out.println();
 		}
-    	} 
-
-	public static void processString(String input){	
-		String firstCo = input.substring(0,input.indexOf(";"));
-		String secondCo = input.substring(input.indexOf(",")+1);
-		int rowFirst = getRow(firstCo);
-		int columnFirst = getCol(firstCo);
+    } 
+	
+	public static void insertNode(int[][] arr, String coords,int symbol){
+		node test = new node(coords);
+		arr[test.getRow()][test.getColumn()] = symbol;
+	}
+	
+	public static void createObstacle(int[][]arr, String obs){
+		String first, second;
 		
-		int rowSecond = 
-	}
-
-	public static int getRow (String coords){
-		return rowFirst = Integer.parseInt(input.substring(0,coords.indexOf(",")));
-	}
-
-	public static int getCol (String coords){
-		return rowFirst = Integer.parseInt(input.substring(coords.indexOf(",")+1));
-	}
-
-	public static void createObstacle(int[][] grid, String input){
+		first = obs.substring(0, obs.indexOf(";"));
+		second = obs.substring(obs.indexOf(";")+1);
 		
+		node firstCoords = new node(first);
+		node secondCoords = new node(second);
+		
+		for(int i = secondCoords.getRow(); i < firstCoords.getRow(); i++){
+			for(int j = firstCoords.getColumn(); j < secondCoords.getColumn(); j++){
+				arr[i][j] = 8;
+			}
+		}
 	}
 
 
@@ -55,15 +55,27 @@ public class first{
 
 		String start = reader.next();
 		String finish = reader.next();
-
-		for(int o = 0; o < obstacles ; o++){
-			String obst = reader.nextInt();
-		}
-
+		
 		int[][] grid = new int[dimension][dimension];
 		grid = createAndPopulateArray(grid);
-		insertPoint(grid,start);
-		insertPoint(grid,finish);
+		insertNode(grid,start,5);
+		insertNode(grid,finish,3);
+
+		for(int o = 0; o < obstacles ; o++){
+			String obst = reader.next();
+			createObstacle(grid,obst);
+		}
+		
+		for(int p = 0; p < samplePoints ; p++){
+			String sPoint = reader.next();
+			node checker = new node(sPoint);
+			if(grid[checker.getRow()][checker.getColumn()] != 8)
+			{
+				insertNode(grid,sPoint,1);
+			}
+		}
+
+		
 		print2D(grid);
 		reader.close();
 	
